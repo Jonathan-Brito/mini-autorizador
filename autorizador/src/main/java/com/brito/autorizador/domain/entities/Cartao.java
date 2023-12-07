@@ -1,5 +1,6 @@
 package com.brito.autorizador.domain.entities;
 
+import com.brito.autorizador.domain.dto.CartaoNovoDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -8,6 +9,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Entity
 @Table(name = "cartao")
@@ -27,6 +29,12 @@ public class Cartao implements Serializable {
 
     public Cartao(){
 
+    }
+
+    public Cartao(CartaoNovoDto cartaoNovo){
+        this.numeroCartao = cartaoNovo.getNumeroCartao();
+        this.senha = cartaoNovo.getSenha();
+        this.saldo = BigDecimal.valueOf(500.00).setScale(2, RoundingMode.DOWN);
     }
 
     public Cartao(String numeroCartao, String senha, BigDecimal saldo){
