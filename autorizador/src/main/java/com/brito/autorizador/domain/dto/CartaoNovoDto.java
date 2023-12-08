@@ -1,5 +1,6 @@
 package com.brito.autorizador.domain.dto;
 
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -9,10 +10,14 @@ public class CartaoNovoDto implements Serializable {
 
     private static final long serialVersionUID = -6136282345225004572L;
 
+
+
     @NotNull
     @Size(min = 16, message = "O cartão deve conter 16 números")
     @Size(max = 16, message = "O cartão deve conter 16 números")
     private String numeroCartao;
+
+
 
     @NotNull
     @Size(min = 4, message = "A senha deve conter 4 números")
