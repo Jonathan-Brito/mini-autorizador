@@ -27,17 +27,16 @@ public class Cartao implements Serializable {
     @NotNull
     private BigDecimal saldo;
 
-    public Cartao(){
-
+    public Cartao() {
     }
 
-    public Cartao(CartaoNovoDto cartaoNovo){
+    public Cartao(CartaoNovoDto cartaoNovo) {
         this.numeroCartao = cartaoNovo.getNumeroCartao();
         this.senha = cartaoNovo.getSenha();
         this.saldo = BigDecimal.valueOf(500.00).setScale(2, RoundingMode.DOWN);
     }
 
-    public Cartao(String numeroCartao, String senha, BigDecimal saldo){
+    public Cartao(String numeroCartao, String senha, BigDecimal saldo) {
         this.numeroCartao = numeroCartao;
         this.senha = senha;
         this.saldo = saldo;
@@ -67,16 +66,12 @@ public class Cartao implements Serializable {
         this.saldo = saldo;
     }
 
-    public void debitar(BigDecimal valor){
+    public void debitar(BigDecimal valor) {
         this.saldo = this.saldo.subtract(valor);
     }
 
     @Override
     public String toString() {
-        return "Cartao{" +
-                "numeroCartao='" + numeroCartao + '\'' +
-                ", senha='" + senha + '\'' +
-                ", saldo=" + saldo +
-                '}';
+        return "Cartao [numeroCartao=" + numeroCartao + ", senha=" + senha + ", saldo=" + saldo + "]";
     }
 }

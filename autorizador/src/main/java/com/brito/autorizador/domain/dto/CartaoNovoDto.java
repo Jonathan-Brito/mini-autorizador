@@ -1,6 +1,7 @@
 package com.brito.autorizador.domain.dto;
 
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -10,16 +11,14 @@ public class CartaoNovoDto implements Serializable {
 
     private static final long serialVersionUID = -6136282345225004572L;
 
-
-
     @NotNull
+    @NotBlank
     @Size(min = 16, message = "O cartão deve conter 16 números")
     @Size(max = 16, message = "O cartão deve conter 16 números")
     private String numeroCartao;
 
-
-
     @NotNull
+    @NotBlank
     @Size(min = 4, message = "A senha deve conter 4 números")
     @Size(max = 4, message = "A senha deve conter 4 números")
     private String senha;
@@ -28,7 +27,7 @@ public class CartaoNovoDto implements Serializable {
 
     }
 
-    public CartaoNovoDto(String numeroCartao, String senha){
+    public CartaoNovoDto(String numeroCartao, String senha) {
         this.numeroCartao = numeroCartao;
         this.senha = senha;
     }
@@ -51,9 +50,6 @@ public class CartaoNovoDto implements Serializable {
 
     @Override
     public String toString() {
-        return "CartaoNovoDto{" +
-                "numeroCartao='" + numeroCartao + '\'' +
-                ", senha='" + senha + '\'' +
-                '}';
+        return "Cartao [numeroCartao=" + numeroCartao + ", senha=" + senha + "]";
     }
 }
