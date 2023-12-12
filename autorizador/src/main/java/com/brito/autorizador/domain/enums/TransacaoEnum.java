@@ -5,5 +5,6 @@ public enum TransacaoEnum {
     OK,
     SALDO_INSUFICIENTE,
     SENHA_INVALIDA,
-    CARTAO_INEXISTENTE
+    CARTAO_INEXISTENTE,
+    CARTAO_INVALIDO
 }
