@@ -6,22 +6,25 @@ import com.brito.autorizador.domain.exception.CartaoExistenteException;
 import com.brito.autorizador.domain.exception.CartaoInvalidoException;
 import com.brito.autorizador.domain.repositories.CartaoRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import static com.brito.autorizador.domain.enums.TransacaoEnum.CARTAO_INVALIDO;
+
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class CartaoService {
 
-    @Autowired
-    CartaoRepository cartaoRepository;
+    private final CartaoRepository cartaoRepository;
 
+    @Transactional
     public CartaoNovoDto criar(CartaoNovoDto cartaoNovo){
-        validarNumeroCartao(cartaoNovo.getNumeroCartao());
-        validarCartaoExistente(cartaoNovo.getNumeroCartao());
+        validarNumeroCartao(cartaoNovo.numeroCartao());
+        validarCartaoExistente(cartaoNovo.numeroCartao());
 
         Cartao cartao = new Cartao(cartaoNovo);
         cartaoRepository.saveAndFlush(cartao);
@@ -36,13 +39,13 @@ public class CartaoService {
     }
 
     private BigDecimal lancarExcecao() {
-        throw new CartaoInvalidoException();
+        throw new CartaoInvalidoException(CARTAO_INVALIDO);
     }
 
     private void validarNumeroCartao(String numeroCartao){
         Optional.of(numeroCartao)
-                .filter(nc -> nc.matches("^\\\\d+$"))
-                .orElseThrow(CartaoInvalidoException::new);
+                .filter(nc -> nc.matches("^\\d+$"))
+                .orElseThrow(() -> new CartaoInvalidoException(CARTAO_INVALIDO));
     }
 
     private void validarCartaoExistente(String numeroCartao){
