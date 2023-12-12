@@ -1,11 +1,12 @@
 package com.brito.autorizador.domain.entities;
 
 import com.brito.autorizador.domain.dto.CartaoNovoDto;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -13,11 +14,15 @@ import java.math.RoundingMode;
 
 @Entity
 @Table(name = "cartao")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Cartao implements Serializable {
 
-    private static final long serialVersionUID = 7636172071782978562L;
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(unique = true)
     private String numeroCartao;
 
@@ -27,42 +32,15 @@ public class Cartao implements Serializable {
     @NotNull
     private BigDecimal saldo;
 
-    public Cartao() {
-    }
-
     public Cartao(CartaoNovoDto cartaoNovo) {
-        this.numeroCartao = cartaoNovo.getNumeroCartao();
-        this.senha = cartaoNovo.getSenha();
+        this.numeroCartao = cartaoNovo.numeroCartao();
+        this.senha = cartaoNovo.senha();
         this.saldo = BigDecimal.valueOf(500.00).setScale(2, RoundingMode.DOWN);
     }
 
     public Cartao(String numeroCartao, String senha, BigDecimal saldo) {
         this.numeroCartao = numeroCartao;
         this.senha = senha;
-        this.saldo = saldo;
-    }
-
-    public String getNumeroCartao() {
-        return numeroCartao;
-    }
-
-    public void setNumeroCartao(String numeroCartao) {
-        this.numeroCartao = numeroCartao;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public BigDecimal getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(BigDecimal saldo) {
         this.saldo = saldo;
     }
 
