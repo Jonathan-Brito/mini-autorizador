@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record CartaoNovoDto(
-        @NotNull @NotBlank
+        @NotBlank
         @Size(min = 16, message = "O cartão deve conter 16 números")
         @Size(max = 16, message = "O cartão deve conter 16 números")
         String numeroCartao,

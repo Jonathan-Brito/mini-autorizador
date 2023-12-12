@@ -10,7 +10,6 @@ import com.brito.autorizador.domain.repositories.CartaoRepository;
 import com.brito.autorizador.domain.repositories.TransacaoRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -61,8 +60,12 @@ public class TransacaoService {
     }
 
     public synchronized void debitarSaldoCartao(Cartao cartao, TransacaoNovaDto transacaoNova){
-        cartao.debitar(transacaoNova.valor());
+        debitar(transacaoNova.valor(), cartao);
         cartaoRepository.save(cartao);
         transacaoRepository.save(new Transacao(transacaoNova, OK));
+    }
+
+    private void debitar(BigDecimal valor, Cartao cartao) {
+        cartao.setSaldo(cartao.getSaldo().subtract(valor));
     }
 }

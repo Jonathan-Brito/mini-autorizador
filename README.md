@@ -132,3 +132,64 @@ Desafios (não obrigatórios):
  * é possível construir a solução inteira sem utilizar nenhum if. Só não pode usar *break* e *continue*! 
  * como garantir que 2 transações disparadas ao mesmo tempo não causem problemas relacionados à concorrência?
 Exemplo: dado que um cartão possua R$10.00 de saldo. Se fizermos 2 transações de R$10.00 ao mesmo tempo, em instâncias diferentes da aplicação, como o sistema deverá se comportar?
+
+# Mini-Autorizador
+
+#### Autores
+1. [x] [Jonathan Brito](https://github.com/Jonathan-Brito/mini-autorizador)
+
+## Autorizador
+
+1. [ ] Sistema mini-autorizador
+
+### Tecnologias
+
+* Java 17
+* SpringBoot 3.2
+* SpringWeb
+* SpringTest
+* SpringDataJpa
+* Hibernate
+* MySql
+* H2 database
+* Projeto Lombok
+* Swagger OpenAPI
+
+#### Ambientes de execução
+
+O projeto pode se executado em ambiente de Teste que o roda o banco de dados H2 em  `test/resources/application-test.properties`.
+
+*Configurando a execução em modo Test*
+
+### Executando a aplicação
+
+Para executar a aplicação é simples, basta abrir a classe `SpringbootCrudApiApplication` e ativar  `run` ou `debug` em sua IDE.
+
+ou executar o comando abaixo:
+
+```shell
+mvn spring-boot:run
+```
+
+### Endpoint OpenAPI Swagger
+
+1. [x] [http://localhost:8080/swagger-ui/index.htm](http://localhost:8080/swagger-ui/index.htm)
+
+## Pré-requisitos
+
+- [Docker](https://www.docker.com/get-started)
+- [Maven](https://maven.apache.org/download.cgi) (para construir o arquivo JAR)
+
+### Construir o arquivo JAR
+
+```bash
+mvn clean install
+```
+### Construir a imagem Docker
+
+docker build -t sua-aplicacao:latest .
+
+### Executar o contêiner Docker
+
+docker run -p 8080:8080 sua-aplicacao
+

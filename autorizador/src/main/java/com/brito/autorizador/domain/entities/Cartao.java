@@ -1,22 +1,20 @@
 package com.brito.autorizador.domain.entities;
 
-import com.brito.autorizador.domain.dto.CartaoNovoDto;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 @Entity
 @Table(name = "cartao")
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Cartao implements Serializable {
 
     @Id
@@ -26,27 +24,11 @@ public class Cartao implements Serializable {
     @Column(unique = true)
     private String numeroCartao;
 
-    @NotNull
+    @Column(nullable = false)
     private String senha;
 
-    @NotNull
+    @Column(nullable = false)
     private BigDecimal saldo;
-
-    public Cartao(CartaoNovoDto cartaoNovo) {
-        this.numeroCartao = cartaoNovo.numeroCartao();
-        this.senha = cartaoNovo.senha();
-        this.saldo = BigDecimal.valueOf(500.00).setScale(2, RoundingMode.DOWN);
-    }
-
-    public Cartao(String numeroCartao, String senha, BigDecimal saldo) {
-        this.numeroCartao = numeroCartao;
-        this.senha = senha;
-        this.saldo = saldo;
-    }
-
-    public void debitar(BigDecimal valor) {
-        this.saldo = this.saldo.subtract(valor);
-    }
 
     @Override
     public String toString() {
